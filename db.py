@@ -63,10 +63,11 @@ def rem_key(key_subject):
     print(f"\nKey deleted: {key_subject}")
     # show_db()
 
-
+"""
 def addError(keySubject, amount):
     cursor.execute(
         "INSERT INTO error_keys (keySubject, amount) VALUES (%s, %s)",
         (keySubject, amount),
     )
     db.commit()
+"""
