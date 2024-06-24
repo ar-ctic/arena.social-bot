@@ -24,7 +24,7 @@ def show_db() -> None:
 
 
 def update_sellPrice_relativeProfit(
-    keySubject, sellPrice, relativeProfit, totalSupply
+    keySubject: str, sellPrice: float, relativeProfit: float, totalSupply: int
 ) -> None:
     cursor.execute(
         "UPDATE your_keys SET sellPrice = %s, relativeProfit = %s, totalSupply = %s WHERE keySubject = %s",
@@ -45,7 +45,7 @@ def get_database() -> list:
     return your_keys
 
 
-def addKey(keySubject, amount, buyPrice, sellPrice, relativeProfit, timeStamp) -> None:
+def addKey(keySubject: str, amount: int, buyPrice: float, sellPrice: float, relativeProfit: float, timeStamp: float) -> None:
     cursor.execute(
         "INSERT INTO your_keys (keySubject, amount, buyPrice, sellPrice, relativeProfit, timeStamp) VALUES (%s, %s, %s, %s, %s, %s)",
         (keySubject, amount, buyPrice, sellPrice, relativeProfit, timeStamp),
@@ -57,7 +57,7 @@ def addKey(keySubject, amount, buyPrice, sellPrice, relativeProfit, timeStamp) -
     # show_db()
 
 
-def rem_key(key_subject):
+def rem_key(key_subject: str) -> None:
     cursor.execute("DELETE FROM your_keys WHERE keySubject = %s", (key_subject,))
     db.commit()
     print(f"\nKey deleted: {key_subject}")

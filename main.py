@@ -13,8 +13,8 @@ import db
 """
 sell amount shares with web3py
 """
-def sellShare(keySubject, amount) -> None:
-    print(amount)
+def sellShare(keySubject: str, amount: int) -> None:
+    
     try:
         # Build Transaction
         # https://web3py.readthedocs.io/en/v5/contracts.html?highlight=build_transaction#web3.contract.ContractFunction.build_transaction
@@ -61,7 +61,7 @@ def sellShare(keySubject, amount) -> None:
 """
 Logic to check when/if key should be sold
 """
-def check_if_sell(data, deltaTime) -> None: 
+def check_if_sell(data: dict, relative_profit: float, deltaTime: float) -> None: 
     if data['amount'] == 1 and deltaTime > 7200:
         print(f'Sell shares {data["keySubject"]}, only 1 share + deltaTime > 7200')
         sellShare(data["keySubject"], data["amount"])
@@ -127,7 +127,6 @@ def check_if_sell(data, deltaTime) -> None:
 """
 iterate through database
 """
-
 def check_database() -> None:
     keys = db.get_database()
     nowTime = time.time()
@@ -168,7 +167,7 @@ def check_database() -> None:
             # time since buy
             deltaTime = nowTime - data["timeStamp"]
             
-            check_if_sell(data, deltaTime)
+            check_if_sell(data, relative_profit, deltaTime)
 
 
         except Exception as error:
@@ -183,7 +182,7 @@ def check_database() -> None:
 
 
 
-def gas_logic(amount):
+def gas_logic(amount: int):
     if amount == 1:
         #print(f"SET GAS BACK TO 46 GWEI")
         gas = web3.to_wei('46', 'gwei')
@@ -216,7 +215,7 @@ def gas_logic(amount):
 """
 buy amount shares with web3py
 """
-def buyShare(sharesSubject, amount, value) -> None:
+def buyShare(sharesSubject: str, amount: int, value: int) -> None:
     
     
     gas = gas_logic(amount)
@@ -304,7 +303,7 @@ def buy_amount_logic(address, twitterFollowers) -> None:
 keeps looking for newest registration using their api
 cnt is used to check the database every x requests
 """
-def main():
+def main() -> None:
     print("\n####### MAIN START #######\n")
     
     url = 'https://api.starsarena.com/user/page'
